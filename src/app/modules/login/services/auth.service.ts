@@ -1,4 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { stringify } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { serviceEndPoint } from 'src/app/routes/endpoint';
@@ -34,7 +35,7 @@ export class AuthService {
     telefono:'',
     idpersona:0
   }
-
+  private _token:String= 'empty';
   logout(): void {
     sessionStorage.removeItem(TOKEN_KEY);
     sessionStorage.removeItem(USER_KEY);
@@ -49,6 +50,7 @@ export class AuthService {
   }
 
   public saveToken(token: string): void {
+    this._token = token;
     sessionStorage.setItem(TOKEN_KEY, token);
   }
   public saveUser(token: any): void {
@@ -80,4 +82,14 @@ export class AuthService {
     return this._usuario
   }
 
+  public get token(): String{
+    if(this._token != 'empty'){
+      return this._token;
+    }else if(this._token == 'empty' && sessionStorage.getItem(TOKEN_KEY) != null){
+      const t = sessionStorage.getItem(TOKEN_KEY);
+      this._token = t !== null ? t: new String;
+      return this._token;
+    }
+    return this._token;
+  }
 } 

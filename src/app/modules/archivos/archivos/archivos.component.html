@@ -1,1 +1,43 @@
-<p>archivos works!</p>
+<section>
+    <mat-card>
+        <mat-card-title>Archivos</mat-card-title>
+        <mat-card-content>
+            <table mat-table [dataSource]="archivos" class="mat-elevation-z8">
+                <ng-container matColumnDef="N" class="index">
+                    <th mat-header-cell *matHeaderCellDef> N° </th>
+                    <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
+                </ng-container>
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef> NOMBRE </th>
+                    <td class="nombre" mat-cell *matCellDef="let archivo"> {{archivo.nombre}} </td>
+                </ng-container>
+                <ng-container matColumnDef="tipo">
+                    <th mat-header-cell *matHeaderCellDef> TIPO </th>
+                    <td class="tipo" mat-cell *matCellDef="let archivo"> {{archivo.tipo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="ver">
+                    <th mat-header-cell *matHeaderCellDef>VER</th>
+                    <td class="bases" mat-cell *matCellDef="let archivo">
+                        <button (click)="abrirNuevoTab(archivo.url)" mat-icon-button>
+                            <mat-icon color="primary">visibility</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="ELIMINAR" class="eliminar">
+                    <th mat-header-cell *matHeaderCellDef>ELIMINAR</th>
+                    <td mat-cell *matCellDef="let archivo">
+                        <button (click)="delete(archivo.idarchivo)" mat-icon-button>
+                            <mat-icon color="warn">delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="['N', 'nombre', 'tipo', 'ver' , 'ELIMINAR' ]">
+                </tr>
+                <tr mat-row *matRowDef="let fila; columns: ['N', 'nombre', 'tipo','ver' , 'ELIMINAR'];">
+                </tr>
+            </table>
+                <button (click)="openDialog()" style="margin-top: 1em;" mat-raised-button color="primary">Subir
+                    archivos</button>
+            </mat-card-content>
+    </mat-card>
+</section>

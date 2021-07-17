@@ -1,1 +1,18 @@
-<p>subir-archivo works!</p>
+<h1 mat-dialog-title>Subir Archivo</h1>
+<form action="">
+    <div mat-dialog-content>
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre: </mat-label>
+            <input name="nombre" [(ngModel)]="archivoModel.nombre" matInput>
+        </mat-form-field>
+        <div appearance="fill">
+            <input type="file" (change)="onFileSelect($event)" style="display: none;" id="btn-verdadero">
+            <button mat-button id="btn-falso">Elegir Archivo</button>
+            <p style="margin-left: 0.7em;" id="custom-text"> No ha elegido ningún archivo.</p>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button (click)="addArchivo()" mat-raised-button color="primary">Subir</button>
+        <button mat-button>Cancelar</button>
+    </div>
+</form>

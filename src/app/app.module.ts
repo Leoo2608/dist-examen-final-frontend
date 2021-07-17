@@ -15,10 +15,12 @@ import { HomeComponent } from './modules/home/home/home.component';
 import { CorreosComponent } from './modules/correos/correos/correos.component';
 import { ArchivosComponent } from './modules/archivos/archivos/archivos.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { MenuComponent } from './layout/menu/menu.component';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { SubirArchivoComponent } from './modules/archivos/subir-archivo/subir-archivo.component';
+import { MatTable, MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -46,7 +48,9 @@ import { SubirArchivoComponent } from './modules/archivos/subir-archivo/subir-ar
     FormsModule,
     ReactiveFormsModule,
     MatMenuModule,
-    MatChipsModule
+    MatChipsModule,
+    MatTableModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
