@@ -31,10 +31,10 @@ export class CorreosComponent implements OnInit {
     const value = (event.value || '').trim();
     // Add our fruit
     if (value) {
-      this.correos.push({dest: value});
+      this.correos.push({ dest: value });
     }
     // Clear the input value
-    if(event.input){
+    if (event.input) {
       event.input.value = ''
     }
   }
@@ -45,19 +45,64 @@ export class CorreosComponent implements OnInit {
     }
   }
 
-  send(){
-    for (let i = 0; i < this.correos.length; i++) {
-      this.correoModel.destinatario = String(this.correos[i].dest)
-      this.correoService.sendEmail(this.correoModel).subscribe(res=>{
-        if(res){
-          Swal.fire( {
-            icon: 'success',
-            title: 'Operación Exitosa!',
-            text: 'Los mensajes se han enviado a los destinatarios'
-          });
-        }
+  send() {
+    if (this.correoModel.mensaje == null || this.correoModel.titulo == null
+      || this.correoModel.mensaje.trim() == "" || this.correoModel.titulo.trim() == "") {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Llene todos los campos porfavor.',
       })
-
+    } else if (this.correos.length == 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ingrese un destinatario!',
+      })
+    } else {
+      if(this.validar_emails() == false){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Destinatario(s) invalidos!',
+        })
+      }else{
+        for (let i = 0; i < this.correos.length; i++) {
+          this.correoModel.destinatario = String(this.correos[i].dest)
+          this.correoService.sendEmail(this.correoModel).subscribe(res => {
+            if (res) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Operación Exitosa!',
+                text: 'Los mensajes se han enviado a los destinatarios'
+              });
+            }
+          })
+  
+        }
+      }
+     
     }
+
+  }
+  validar_emails():boolean{
+    var n = 0;
+    for (let i = 0; i < this.correos.length; i++) {
+      var email = String(this.correos[i].dest);
+      if(this.pathEmail(email)==false){
+        break;
+      }else{
+        n = n + 1;
+      }
+    }
+    if(n == this.correos.length){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  pathEmail(email:any) {
+    var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email) ? true : false;
   }
 }

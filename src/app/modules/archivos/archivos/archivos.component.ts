@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
+import { AuthService } from '../../login/services/auth.service';
 import { ArchivoService } from '../services/archivo.service';
 import { SubirArchivoComponent } from '../subir-archivo/subir-archivo.component';
 
@@ -12,13 +13,15 @@ import { SubirArchivoComponent } from '../subir-archivo/subir-archivo.component'
 export class ArchivosComponent implements OnInit {
 
   constructor(private archivoService:ArchivoService,private dc: ChangeDetectorRef,
-    public dialog: MatDialog ) { }
+    public dialog: MatDialog, private authService:AuthService ) { }
   archivos:any;
+  idu:any;
   ngOnInit(): void {
+    this.idu = this.authService.usuario.idusuario;
     this.listArchivos();
   }
   listArchivos():void{
-    this.archivoService.listArchivos().subscribe(data=>{
+    this.archivoService.listArchivos(this.idu).subscribe(data=>{
       this.archivos = data;
       console.log(this.archivos)
       this.dc.detectChanges();

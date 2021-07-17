@@ -30,8 +30,8 @@ export class ArchivoService {
     return this.httpHeaders;
   }
 
-  listArchivos():Observable<any>{
-    return this.http.get<any>(`${serviceEndPoint}/${this.routeArchivo}`,{headers:this.grantAuthorization()});
+  listArchivos(id:any):Observable<any>{
+    return this.http.get<any>(`${serviceEndPoint}/${this.routeArchivo}/`+id,{headers:this.grantAuthorization()});
   }
 
   uploadDoc(fd:any){
