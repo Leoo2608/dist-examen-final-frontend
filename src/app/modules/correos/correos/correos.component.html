@@ -1,0 +1,32 @@
+<section>
+    <mat-card>
+        <mat-card-title>Enviar Correos</mat-card-title>
+        <form (ngSubmit)="send()">
+            <mat-card-content>
+                <p style="margin-top: 2em;">Destinatarios:</p>
+                <mat-form-field class="example-chip-list" appearance="fill">
+                    <mat-label>Ingrese destinatarios</mat-label>
+                    <mat-chip-list #chipList aria-label="Mails">
+                        <mat-chip *ngFor="let correo of correos" [selectable]="selectable" [removable]="removable"
+                            (removed)="remove(correo)">
+                            {{correo.dest}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="Nuevo correo..." [matChipInputFor]="chipList"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                </mat-form-field>
+                <mat-form-field>
+                    <input name="titulo" [(ngModel)]="correoModel.titulo" matInput placeholder="Titulo">
+                </mat-form-field>
+                <mat-form-field>
+                    <input name="mensaje" [(ngModel)]="correoModel.mensaje"matInput placeholder="Mensaje">
+                </mat-form-field>
+                <div class="button">
+                    <button type="submit" mat-raised-button color="primary">Enviar Correos</button>
+                </div>
+            </mat-card-content>
+        </form>
+    </mat-card>
+</section>

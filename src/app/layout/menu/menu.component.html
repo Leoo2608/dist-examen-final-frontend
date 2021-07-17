@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <span> &nbsp; Mi Applicación</span>
+  <span class="example-spacer"></span>
+  <mat-icon>forward_to_inbox</mat-icon>
+  <button routerLink="/pages/correo" style="margin-right: 1em;" mat-button>Enviar Correos</button>
+  <mat-icon>inventory_2</mat-icon>
+  <button routerLink="/pages/archivo" style="margin-right: 1em;" mat-button>Gestionar Archivos</button>
+  <mat-icon>person_outline</mat-icon>
+  <button mat-button [matMenuTriggerFor]="menu"> {{this.nombre}} {{this.apellido}} </button>
+  <mat-menu #menu="matMenu">
+    <button (click)="logout()" mat-menu-item>Logout</button>
+  </mat-menu>
+</mat-toolbar>
+<router-outlet></router-outlet>
