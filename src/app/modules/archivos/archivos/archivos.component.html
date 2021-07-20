@@ -26,7 +26,7 @@
                 <ng-container matColumnDef="ELIMINAR" class="eliminar">
                     <th mat-header-cell *matHeaderCellDef>ELIMINAR</th>
                     <td mat-cell *matCellDef="let archivo">
-                        <button (click)="delete(archivo.idarchivo)" mat-icon-button>
+                        <button (click)="delete(archivo.idarchivo, archivo.idurl)" mat-icon-button>
                             <mat-icon color="warn">delete</mat-icon>
                         </button>
                     </td>

@@ -12,25 +12,25 @@ import { SubirArchivoComponent } from '../subir-archivo/subir-archivo.component'
 })
 export class ArchivosComponent implements OnInit {
 
-  constructor(private archivoService:ArchivoService,private dc: ChangeDetectorRef,
-    public dialog: MatDialog, private authService:AuthService ) { }
-  archivos:any;
-  idu:any;
+  constructor(private archivoService: ArchivoService, private dc: ChangeDetectorRef,
+    public dialog: MatDialog, private authService: AuthService) { }
+  archivos: any;
+  idu: any;
   ngOnInit(): void {
     this.idu = this.authService.usuario.idusuario;
     this.listArchivos();
   }
-  listArchivos():void{
-    this.archivoService.listArchivos(this.idu).subscribe(data=>{
+  listArchivos(): void {
+    this.archivoService.listArchivos(this.idu).subscribe(data => {
       this.archivos = data;
       console.log(this.archivos)
       this.dc.detectChanges();
     })
   }
 
-  openDialog():void{
-    const dialogRef = this.dialog.open(SubirArchivoComponent,{});
-    dialogRef.afterClosed().subscribe(res=>{
+  openDialog(): void {
+    const dialogRef = this.dialog.open(SubirArchivoComponent, {});
+    dialogRef.afterClosed().subscribe(res => {
       this.listArchivos();
     })
   }
@@ -42,7 +42,7 @@ export class ArchivosComponent implements OnInit {
     win.focus();
   }
 
-  delete(num: number) {
+  delete(num: number, idurl: any) {
     Swal.fire({
       title: 'Estas seguro?',
       text: "No podras revertir esto!",
@@ -53,16 +53,19 @@ export class ArchivosComponent implements OnInit {
       confirmButtonText: 'Si, Eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Eliminado!',
-          'El registro ha sido eliminado.',
-          'success'
-        )
-        this.archivoService.delArchivo(num).subscribe(
-          res => {
-            this.listArchivos();
+        this.archivoService.deleteLink(idurl).subscribe(res => {
+          if (res) {
+            this.archivoService.delArchivo(num).subscribe(res => {
+              Swal.fire(
+                'Eliminado!',
+                'El registro ha sido eliminado.',
+                'success'
+              )
+              this.listArchivos();
+            })
           }
-        )
+        })
+
       }
     })
   }

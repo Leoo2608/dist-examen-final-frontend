@@ -9,6 +9,7 @@ import { CorreoService } from '../services/correo.service';
 export interface CorreoF {
   dest: string;
 }
+
 @Component({
   selector: 'app-correos',
   templateUrl: './correos.component.html',
@@ -69,6 +70,7 @@ export class CorreosComponent implements OnInit {
       }else{
         for (let i = 0; i < this.correos.length; i++) {
           this.correoModel.destinatario = String(this.correos[i].dest)
+          console.log(this.correoModel.destinatario)
           this.correoService.sendEmail(this.correoModel).subscribe(res => {
             if (res) {
               Swal.fire({
@@ -78,7 +80,6 @@ export class CorreosComponent implements OnInit {
               });
             }
           })
-  
         }
       }
      

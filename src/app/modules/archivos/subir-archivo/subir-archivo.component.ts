@@ -5,6 +5,11 @@ import Swal from 'sweetalert2';
 import { AuthService } from '../../login/services/auth.service';
 import { Archivo } from '../models/archivo';
 import { ArchivoService } from '../services/archivo.service';
+export interface ReqFiles {
+  link: string,
+  id: string
+}
+
 @Component({
   selector: 'app-subir-archivo',
   templateUrl: './subir-archivo.component.html',
@@ -33,7 +38,9 @@ export class SubirArchivoComponent implements OnInit {
     this.selectedFile = <File>event.target.files[0];
     console.log(this.selectedFile);
   }
+  reqs: ReqFiles[] = [];
   addArchivo() {
+    console.log('entre al add Archivo')
     if (this.selectedFile == null || this.archivoModel.nombre == null
       || this.archivoModel.nombre.trim()=="") {
       Swal.fire({
@@ -56,10 +63,13 @@ export class SubirArchivoComponent implements OnInit {
       } else if (this.selectedFile.type == 'image/png') {
         this.archivoModel.tipo = 'PNG';
       }
-      fd.append('document', this.selectedFile, this.selectedFile.name);
+      fd.append('hola', this.selectedFile, this.selectedFile.name);
+      console.log("esto se enviara al service: "+fd)
       this.archivoService.uploadDoc(fd).subscribe(res => {
         if (res) {
-          this.archivoModel.url = String(res);
+          var json = JSON.parse(res);
+          this.archivoModel.url = String(json.link);
+          this.archivoModel.idurl = String(json.id);
           console.log(this.archivoModel)
           this.archivoService.addArchivo(this.archivoModel).subscribe(res => {
             this.salirDialog();

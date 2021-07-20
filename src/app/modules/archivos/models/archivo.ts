@@ -4,4 +4,5 @@ export class Archivo {
     tipo!: string;
     url!: string;
     idusuario!:number;
+    idurl!:string;
 }

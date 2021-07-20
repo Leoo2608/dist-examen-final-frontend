@@ -12,7 +12,8 @@ export class ArchivoService {
 
   constructor(private http:HttpClient, private authService:AuthService) { }
   private routeArchivo = 'archivos';
-  private routeUpload = 'upload'
+  private routeUpload = 'uploading'
+  private routeDelUrl = 'idurl'
   private httpHeadersFile = new HttpHeaders({});
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json'});
   private grantAuthorization(){
@@ -33,8 +34,8 @@ export class ArchivoService {
   listArchivos(id:any):Observable<any>{
     return this.http.get<any>(`${serviceEndPoint}/${this.routeArchivo}/`+id,{headers:this.grantAuthorization()});
   }
-
   uploadDoc(fd:any){
+    console.log('entre al uploadDoc service, esto viene al serv: '+fd)
     return this.http.post(`${serviceEndPoint}/${this.routeArchivo}/${this.routeUpload}`, fd, {responseType:'text',headers:this.grantAuthToFiles()});
   }
   addArchivo(archivo:any):Observable<number>{
@@ -42,5 +43,8 @@ export class ArchivoService {
   }
   delArchivo(id:any):Observable<any>{
     return this.http.delete(`${serviceEndPoint}/${this.routeArchivo}/`+id,{headers:this.grantAuthorization()});
+  }
+  deleteLink(idurl:any):Observable<any>{
+    return this.http.delete(`${serviceEndPoint}/${this.routeArchivo}/${this.routeDelUrl}/`+idurl,{headers:this.grantAuthorization()})
   }
 }
