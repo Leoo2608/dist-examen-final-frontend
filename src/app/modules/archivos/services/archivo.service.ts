@@ -47,4 +47,5 @@ export class ArchivoService {
   deleteLink(idurl:any):Observable<any>{
     return this.http.delete(`${serviceEndPoint}/${this.routeArchivo}/${this.routeDelUrl}/`+idurl,{headers:this.grantAuthorization()})
   }
+  
 }
