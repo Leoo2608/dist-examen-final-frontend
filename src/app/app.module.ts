@@ -21,6 +21,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { SubirArchivoComponent } from './modules/archivos/subir-archivo/subir-archivo.component';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MainComponent } from './modules/main/main.component';
 
 
 
@@ -32,7 +33,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     CorreosComponent,
     ArchivosComponent,
     MenuComponent,
-    SubirArchivoComponent
+    SubirArchivoComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,

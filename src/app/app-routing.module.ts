@@ -7,13 +7,14 @@ import { MenuComponent } from './layout/menu/menu.component';
 import { LoginGuard } from './modules/login/services/guards/login.guard';
 import { CorreosComponent } from './modules/correos/correos/correos.component';
 import { ArchivosComponent } from './modules/archivos/archivos/archivos.component';
+import { MainComponent } from './modules/main/main.component';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/auth/login',
-    pathMatch: 'full'
+    path:'',
+    component: MainComponent
   },
+
   {
     path: 'auth/login',
     component: LoginComponent,
